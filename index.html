@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Monthsary my Love!❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Gochi+Hand&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-sweet: #fff5f7;
+            --lace-white: rgba(255, 255, 255, 0.9);
+            --ink-warm: #3d3d3d;
+            --sweet-pink: #ff85a1;
+            --rose-gold: #e5b1b1;
+            --shadow-soft: rgba(255, 133, 161, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-sweet);
+            background-image: 
+                url('https://www.transparenttextures.com/patterns/cream-pixels.png'),
+                radial-gradient(#ffcad4 1px, transparent 1px);
+            background-size: auto, 30px 30px;
+            color: var(--ink-warm);
+            overflow-x: hidden;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23ff85a1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'), auto;
+        }
+
+        /* --- Sparkle Trail Canvas --- */
+        #canvas {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* --- Lace Borders --- */
+        .lace-top, .lace-bottom {
+            position: fixed;
+            left: 0; width: 100%; height: 20px;
+            background-image: radial-gradient(circle at 10px -5px, transparent 12px, var(--lace-white) 13px);
+            background-size: 20px 20px;
+            z-index: 50;
+        }
+        .lace-top { top: 0; }
+        .lace-bottom { bottom: 0; transform: rotate(180deg); }
+
+        /* --- Floating Elements --- */
+        .floating-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        .petal {
+            position: absolute;
+            background: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.4;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(720deg); }
+        }
+
+        /* --- Main Content Wrapper --- */
+        .sweet-book {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* --- Title Section --- */
+        .title-card {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .title-card h1 {
+            font-family: 'Sacramento', cursive;
+            font-size: 5.5rem;
+            color: var(--sweet-pink);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .sweet-sub {
+            font-family: 'Gochi Hand', cursive;
+            font-size: 1.6rem;
+            color: var(--rose-gold);
+            letter-spacing: 2px;
+        }
+
+        /* --- Layout Split --- */
+        .content-split {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        /* --- Left Side: The Letter --- */
+        .left-col {
+            flex: 1.2;
+            min-width: 0;
+        }
+
+        .letter-paper {
+            background: white;
+            padding: 60px 50px;
+            box-shadow: 0 25px 50px var(--shadow-soft);
+            border-radius: 10px;
+            position: relative;
+            border: 1px solid rgba(255, 133, 161, 0.1);
+        }
+
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            line-height: 2;
+            font-size: 1.2rem;
+            color: var(--ink-warm);
+        }
+        .letter-content p { margin-bottom: 25px; }
+
+        .big-signature {
+            font-family: 'Sacramento', cursive;
+            font-size: 3.5rem;
+            color: var(--sweet-pink);
+            text-align: right;
+            margin-top: 40px;
+        }
+
+        /* --- Right Side: The Gallery --- */
+        .right-col {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .frame {
+            background: #fff;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 8px 8px 20px var(--shadow-soft);
+            transform: rotate(var(--r));
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            width: 280px;
+            position: relative;
+        }
+        .frame:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 30;
+            box-shadow: 12px 12px 30px rgba(255, 133, 161, 0.25);
+        }
+        .img-box {
+            width: 100%; height: 240px;
+            background: #fffafa;
+            overflow: hidden;
+            border: 1px solid #ffeef1;
+        }
+        .img-box img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .frame .caption {
+            font-family: 'Sacramento', cursive;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 12px;
+            color: var(--sweet-pink);
+            font-weight: bold;
+        }
+        .washi {
+            position: absolute;
+            top: -15px; left: 50%;
+            transform: translateX(-50%) rotate(var(--tr));
+            width: 110px; height: 30px;
+            background: var(--tw);
+            opacity: 0.6;
+            mask-image: url('https://www.transparenttextures.com/patterns/rough-paper.png');
+            z-index: 5;
+        }
+
+        /* --- Sticky Note Stats --- */
+        .sticky-stats {
+            margin-bottom: 30px;
+            background: #fff0f3;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px var(--shadow-soft);
+            font-family: 'Gochi Hand', cursive;
+            border-left: 4px solid var(--sweet-pink);
+            width: 100%;
+            max-width: 280px;
+        }
+        .sticky-stats ul { list-style: none; }
+        .sticky-stats li { margin-bottom: 10px; font-size: 1.2rem; color: #ff5d8f; }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 60px;
+            font-family: 'Sacramento', cursive;
+            font-size: 2.2rem;
+            color: var(--rose-gold);
+            text-align: center;
+            padding-bottom: 40px;
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 1100px) {
+            .content-split { flex-direction: column; align-items: center; }
+            .left-col, .right-col { width: 100%; }
+            .right-col { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .sticky-stats { max-width: 400px; }
+        }
+        @media (max-width: 600px) {
+            .title-card h1 { font-size: 3.5rem; }
+            .letter-paper { padding: 35px 20px; }
+            .right-col { gap: 20px; }
+            .frame { width: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+    <div class="lace-top"></div>
+    <div class="lace-bottom"></div>
+    <div class="floating-container" id="petals"></div>
+
+    <div class="sweet-book">
+        
+        <header class="title-card">
+            <h1>Happy Monthsary my Maldita girl!</h1>
+            <div class="sweet-sub">25 MONTHS OF LOVE &bull; MAY 10, 2026</div>
+        </header>
+
+        <div class="content-split">
+            <!-- LEFT SIDE: THE LETTER -->
+            <main class="left-col">
+                <div class="letter-paper">
+                    <article class="letter-content">
+                        <p>It feels crazy to think that we’ve been together for two years and one month now, but at the same time, it feels like I’ve loved you my whole life. Every single day with you is a blessing, and I just wanted to take a moment today to remind you of exactly how much you mean to me.</p>
+
+                        <p>Through all the busy schedules, the stressful weeks of studying, and the daily hustle, you are always the brightest part of my day. You have this incredible ability to make the heavy days feel a little lighter and the good days feel absolutely perfect just by being there.</p>
+
+                        <p>Thank you for being my constant support system, my safe space, and my best friend. Thank you for your endless patience on the days when I'm overwhelmed, and for always being the first to cheer me on. I love looking back at how much we’ve grown together since our very first month.</p>
+
+                        <p>We’ve built such a beautiful bond, and I wouldn't trade our late-night conversations, our inside jokes, or even our quiet, simple moments together for the world. You make me want to be a better person, and I’m so grateful to have someone as amazing as you in my corner.</p>
+
+                        <p>As we celebrate another month of "us," I promise to keep choosing you every single day. I promise to keep making you smile, to stand by your side through thick and thin, and to love you even more than I did yesterday.</p>
+
+                        <div class="big-signature">I Love You Always!</div>
+                    </article>
+                </div>
+            </main>
+
+            <!-- RIGHT SIDE: THE GALLERY -->
+            <aside class="right-col">
+                <div class="sticky-stats">
+                    <ul>
+                        <li>💌 2 Years, 1 Month</li>
+                        <li>🧁 <span id="days">761</span> Sweet Days</li>
+                        <li>🍬 <span id="hours">18,264</span> Hours</li>
+                        <li>🍭 One Forever</li>
+                    </ul>
+                </div>
+
+                <div class="frame" style="--r: -2deg">
+                    <div class="washi" style="--tw: #ffb7c5; --tr: 2deg"></div>
+                    <div class="img-box">
+                        <img src="sweet1.jpg" alt="Sweet 1">
+                    </div>
+                    <div class="caption">The Beginning ✨</div>
+                </div>
+
+                <div class="frame" style="--r: 3deg">
+                    <div class="washi" style="--tw: #c3f0ca; --tr: -3deg"></div>
+                    <div class="img-box">
+                        <img src="sweet2.jpg" alt="Sweet 2">
+                    </div>
+                    <div class="caption">Soulmates ❤️</div>
+                </div>
+
+                <div class="frame" style="--r: -1deg">
+                    <div class="washi" style="--tw: #bae1ff; --tr: 1deg"></div>
+                    <div class="img-box">
+                        <img src="sweet3.jpg" alt="Sweet 3">
+                    </div>
+                    <div class="caption">Simply Us 💖</div>
+                </div>
+            </aside>
+        </div>
+
+        <footer>
+            Handcrafted with all my love &bull; 05.10.2026
+        </footer>
+
+    </div>
+
+    <script>
+        // --- Petals Animation ---
+        const petalContainer = document.getElementById('petals');
+        function spawnPetal() {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 15 + 10 + 'px';
+            p.style.width = size;
+            p.style.height = size;
+            p.style.animationDuration = Math.random() * 5 + 5 + 's';
+            petalContainer.appendChild(p);
+            setTimeout(() => p.remove(), 10000);
+        }
+        setInterval(spawnPetal, 450);
+
+        // --- Sparkle Trail ---
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsl(${Math.random() * 30 + 340}, 100%, 80%)`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 3; i++) {
+                particles.push(new Particle(e.clientX, e.clientY));
+            }
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].size <= 0.2) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- Stats Logic ---
+        const start = new Date('2024-04-10');
+        const now = new Date('2026-05-10');
+        const diffDays = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+        document.getElementById('days').innerText = diffDays;
+        document.getElementById('hours').innerText = (diffDays * 24).toLocaleString();
+    </script>
+</body>
+</html>
